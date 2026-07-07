@@ -1,5 +1,4 @@
 *.o
 /iso/boot/custom-os
-*.ld
 *.iso
 custom-os
