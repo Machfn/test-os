@@ -1,6 +1,5 @@
 *.o
 /iso/boot/custom-os
-Makefile
 *.ld
 *.iso
 custom-os
