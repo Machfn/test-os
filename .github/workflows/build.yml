@@ -1,0 +1,34 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential gcc-multilib nasm grub-common grub-pc-bin xorriso mtools
+
+    - name: Add GRUB compatibility alias
+      run: sudo ln -s "$(command -v grub-mkrescue)" /usr/local/bin/grub2-mkrescue
+
+    - name: Run Makefile build
+      run: make
+
+    - name: Upload Compiled ISO
+      uses: actions/upload-artifact@v4
+      with:
+        name: compiled-iso
+        path: ./custom-os.iso
+        retention-days: 5
